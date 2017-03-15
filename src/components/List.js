@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import AddList from './AddList';
 
 class List extends Component {
 	constructor(){
 		super();
 		this.state = {
-			items: [
+			taches: [
 				{
 					id: 1,
 					content: "Jouer"
@@ -21,14 +22,24 @@ class List extends Component {
 		}
 	}
 
+	onSubmit = (newTache) => {
+		let myNewTaches = Object.assign([], this.state.taches);
+		myNewTaches.push(newTache);
+
+		this.setState({
+			taches: myNewTaches
+		});
+	}
+
 	render() {
-		const itemList = this.state.items.map(item => {
-			return <li key={ item.id }>{ item.content }</li>
+		const tacheList = this.state.taches.map(tache => {
+			return <li key={ tache.id }>{ tache.content }</li>
 		});
 
 		return(
 			<div>
-				<ul>{itemList}</ul>
+				<AddList onSubmit={ this.onSubmit } />
+				<ul>{tacheList}</ul>
 			</div>
 		);
 	}
