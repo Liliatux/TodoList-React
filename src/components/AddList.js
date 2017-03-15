@@ -3,26 +3,26 @@ import React, { Component } from 'react';
 class AddList extends Component {
 	handleSubmit = (event) => {
 		event.preventDefault();
-		const newContentTache = this.inputTache.value;
-		const newTache = {
+		const newContentTask = this.inputTask.value;
+		const newTask = {
 			id: Date.now(),
-			content: newContentTache
+			content: newContentTask
 		}
-		this.props.onSubmit(newTache);
+		this.props.onSubmit(newTask);
 
-		this.inputTache.value = "";
+		this.inputTask.value = "";
 	}
 
 	render(){
 		return(
 			<div>
 				<form onSubmit={ this.handleSubmit }>
-					<label htmlFor="tache">Nouvelle tâche</label>
+					<label htmlFor="task">Nouvelle tâche</label>
 					<div>
 						<input
-							ref={ input => this.inputTache = input }
+							ref={ input => this.inputTask = input }
 							type="text"
-							name="tache"
+							name="task"
 							placeholder="Faire mes devoirs"
 						/>
 						<button>+</button>

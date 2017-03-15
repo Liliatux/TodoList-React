@@ -1,45 +1,70 @@
 import React, {Component} from 'react';
 import AddList from './AddList';
+import Task from './Task';
+import Filter from './Filter';
 
 class List extends Component {
 	constructor(){
 		super();
 		this.state = {
-			taches: [
+			tasks: [
 				{
 					id: 1,
-					content: "Jouer"
+					content: "Jouer",
+					checked: false
 				},
 				{
 					id:2,
-					content: "Stage"
+					content: "Stage",
+					checked: false
 				},
 				{
 					id:3,
-					content: "Axel"
+					content: "Axel",
+					checked: false
 				},
 			]
 		}
 	}
 
-	onSubmit = (newTache) => {
-		let myNewTaches = Object.assign([], this.state.taches);
-		myNewTaches.push(newTache);
+	onSubmit = (newTask) => {
+		let myNewTasks = Object.assign([], this.state.tasks);
+		myNewTasks.push(newTask);
 
 		this.setState({
-			taches: myNewTaches
+			tasks: myNewTasks
 		});
 	}
 
-	render() {
-		const tacheList = this.state.taches.map(tache => {
-			return <li key={ tache.id }>{ tache.content }</li>
+	onChangeTask = (taskId, isChecked) => {
+		const updatedTasks = this.state.tasks.map( task => {
+			if(task.id === taskId) {
+				task.checked = isChecked;
+			}
+			return task;
+		});
+
+		this.setState({
+			tasks: updatedTasks
+		});
+	}
+
+	render(){
+		const taskList = this.state.tasks.map(task => {
+			return( 
+				<Task
+					key={ task.id }
+					task={ task }
+					onChangeTask={ this.onChangeTask }
+				/>
+			);
 		});
 
 		return(
 			<div>
 				<AddList onSubmit={ this.onSubmit } />
-				<ul>{tacheList}</ul>
+				<Filter />
+				<ul>{taskList}</ul>
 			</div>
 		);
 	}
